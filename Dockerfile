@@ -16,5 +16,7 @@ WORKDIR /usr/src/app
 # Install dependencies from package.json
 RUN yarn
 
+EXPOSE 3000
+
 # Command for container to execute
-ENTRYPOINT [ "node", "_app.js"]
+ENTRYPOINT [ "yarn", "dev"]
