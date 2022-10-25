@@ -1,4 +1,4 @@
-FROM node:current-alpine
+FROM node:16-alpine3.15
 
 LABEL org.opencontainers.image.title="Happy Feet Prep App" \
       org.opencontainers.image.description="School application" \
