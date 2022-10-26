@@ -1,22 +1,19 @@
-FROM node:16-alpine3.15
+FROM        node:16-alpine3.15
 
-LABEL org.opencontainers.image.title="Happy Feet Prep App" \
-      org.opencontainers.image.description="School application" \
-      org.opencontainers.image.authors="g.msibi@icloud.com"
+LABEL       org.opencontainers.image.title="Happy Feet Prep App" \
+            org.opencontainers.image.description="School application" \
+            org.opencontainers.image.authors="g.msibi@icloud.com"
+            
+ENV         PORT=3000
 
-# Create directory in container image for app code
-RUN mkdir -p /usr/src/app
+WORKDIR     /usr/src/app
 
-# Copy app code (.) to /usr/src/app in container image
-COPY . /usr/src/app
+COPY        package.json yarn.lock ./
 
-# Set working directory context
-WORKDIR /usr/src/app
+RUN         yarn
 
-# Install dependencies from package.json
-RUN yarn
+COPY        . .
 
-EXPOSE 3000
+EXPOSE      $PORT
 
-# Command for container to execute
-ENTRYPOINT [ "yarn", "dev"]
+ENTRYPOINT  ["yarn", "dev"]
