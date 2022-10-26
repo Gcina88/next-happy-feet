@@ -1,0 +1,9 @@
+version: '1.0'
+
+services:
+  nextapp:
+    container_name: next-happyft
+    image: nexthappyfeet:1.0
+    build: .
+    ports:
+      - "8000:3000"
