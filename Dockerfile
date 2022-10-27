@@ -1,4 +1,6 @@
 FROM node:16-alpine3.15 AS base
+ARG NODE_ENV
+ENV NODE_ENV "${NODE_ENV:-production}"
 
 LABEL org.opencontainers.image.title="Happy Feet Prep App" \
       org.opencontainers.image.description="School application" \
@@ -14,4 +16,4 @@ WORKDIR /app
 COPY . .
 COPY --from=deps /app/node_modules ./node_modules
 EXPOSE 3000
-ENTRYPOINT ["yarn", "dev"]
+ENTRYPOINT ["/app/docker-entrypoint.sh"]

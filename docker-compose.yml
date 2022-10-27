@@ -3,7 +3,9 @@ version: '3.8'
 services:
   nextapp:
     container_name: next-happyft
-    image: nexthappyfeet:2.0
+    image: nexthappyfeet:3.0
+    environment:
+      - NODE_ENV=development
     build: .
     ports:
       - "8000:3000"
