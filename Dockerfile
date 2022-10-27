@@ -1,19 +1,17 @@
-FROM        node:16-alpine3.15
+FROM node:16-alpine3.15 AS base
 
-LABEL       org.opencontainers.image.title="Happy Feet Prep App" \
-            org.opencontainers.image.description="School application" \
-            org.opencontainers.image.authors="g.msibi@icloud.com"
-            
-ENV         PORT=3000
+LABEL org.opencontainers.image.title="Happy Feet Prep App" \
+      org.opencontainers.image.description="School application" \
+      org.opencontainers.image.authors="g.msibi@icloud.com"
 
-WORKDIR     /usr/src/app
+FROM base AS deps
+WORKDIR /app
+COPY package.json yarn.lock ./
+RUN yarn install
 
-COPY        package.json yarn.lock ./
-
-RUN         yarn
-
-COPY        . .
-
-EXPOSE      $PORT
-
-ENTRYPOINT  ["yarn", "dev"]
+FROM base
+WORKDIR /app
+COPY . .
+COPY --from=deps /app/node_modules ./node_modules
+EXPOSE 3000
+ENTRYPOINT ["yarn", "dev"]
