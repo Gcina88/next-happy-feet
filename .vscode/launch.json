@@ -1,0 +1,13 @@
+{
+    "configurations": [
+        {
+            "name": "Docker: Attach to Node",
+            "type": "node",
+            "request": "launch",
+            "localRoot": "${workspaceFolder}",
+            "remoteRoot": "/app",
+            "preLaunchTask": "docker-run: debug",
+            "restart": true
+        }
+    ]
+}
